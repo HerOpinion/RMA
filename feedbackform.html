@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soothe-Mental Health</title>
+    <script defer="" type="module" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" />
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap"
+        rel="stylesheet" />
+    <link rel="preload" href="styles.css" as="styles" />
+    <link href="styles.css" rel="stylesheet" />
+    <link href="feedback.css" rel="stylesheet" />
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom,
+                    rgba(100, 93, 93, 0.3) 0,
+                    rgba(0, 0, 0, 0.7) 75%,
+                    #2d2e2d 130%),
+                url(https://i.pinimg.com/564x/9d/7e/6d/9d7e6d9a3a316c0477e69fceb9a3f99d.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .fa {
+            font-size: 25px;
+        }
+
+        .checked {
+            color: #5f9ea0;
+        }
+
+        /* Three column layout */
+        .side {
+            float: left;
+            width: 15%;
+            margin-top: 10px;
+        }
+
+        .middle {
+            margin-top: 10px;
+            float: left;
+            width: 70%;
+        }
+
+        /* Place text to the right */
+        .right {
+            text-align: right;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* The bar container */
+        .bar-container {
+            width: 100%;
+            background-color: #ffffff;
+            text-align: center;
+            border-radius: 30px;
+        }
+
+        /* Individual bars */
+        .bar-5 {
+            width: 60%;
+            height: 18px;
+            background-color: #5f9ea0;
+            border-radius: 30px
+        }
+
+        .bar-4 {
+            width: 30%;
+            height: 18px;
+            background-color: #5f9ea0;
+            border-radius: 30px
+        }
+
+        .bar-3 {
+            width: 10%;
+            height: 18px;
+            background-color: #5f9ea0;
+            border-radius: 30px
+        }
+
+        .bar-2 {
+            width: 4%;
+            height: 18px;
+            background-color: #5f9ea0;
+            border-radius: 30px
+        }
+
+        .bar-1 {
+            width: 15%;
+            height: 18px;
+            background-color: #5f9ea0;
+            border-radius: 30px
+        }
+
+        /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+        @media (max-width: 400px) {
+
+            .side,
+            .middle {
+                width: 100%;
+            }
+
+            .right {
+                display: none;
+            }
+        }
+
+        .rating-container {
+            margin: 150px;
+            padding: 30px;
+            border: 1px solid black;
+            border-radius: 30px;
+            background-color: #181817cf;
+            color: white;
+            max-width: 540px;
+        }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #add-button {
+            box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+            letter-spacing: 0.15rem;
+            outline: none;
+            display: inline;
+            padding: 12px 24px;
+            background: #1cabc494;
+            text-decoration: none;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        #add-button:hover {
+            background: #b7b7b7 none repeat scroll 0% 0%;
+            transform: translateX(0rem) translateY(-0.125rem);
+        }
+
+        #feedback-heading {
+            margin: 0;
+            padding: 0;
+            color: #18d2f794;
+        }
+
+        @media(max-width: 510px) {
+            .rating-container {
+                padding: 20px;
+                margin: 150px 30px;
+                font-size: 15px;
+            }
+
+            #add-button {
+                padding: 10px;
+                font-size: 8px;
+            }
+
+            .head {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 100px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Animation for the modal */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 2s forwards;
+        }
+    </style>
+</head>
+
+<body>
+
+    <body id="home">
+        <!-- Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-2 px-lg-5">
+                <a class="navbar-brand" href="#home" id="title-brand">REFUFY</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="Home.html" target="_parent">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="About.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">Ratings</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-rate" style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    ">
+            <div class="rating-container">
+                <div class="head">
+                    <div class="head-left">
+                        <h1 id="feedback-heading">Add Feedback</h1>
+                        <p>Write your concerns and feedbacks</p>
+                    </div>
+                    <div class="head-right">
+                        <a class="btn btn-primary" id="add-button" href="index.html" target="">Download App</a>
+                    </div>
+                </div>
+                <hr style="border:3px solid #f1f1f1">
+
+                <div class="row">
+                    <div class="form__group">
+                        <p for="name">Your Name</p>
+                        <input type="text" name="name" id="name" class="form__input">
+                    </div>
+                    <div class="form__group">
+                        <div class="rate-name">
+                            <p for="rate">How do you rate you overall experience with our service?</p>
+                        </div>
+                        <div class="ratings" style="
+                        display: flex;
+                        justify-content: flex-start;
+                        ">
+                            <input type="radio" name="rating" value="5" id="star5">
+                            <label for="star5"><span>&#9733;</span></label>
+                            <input type="radio" name="rating" value="4" id="star4">
+                            <label for="star4"><span>&#9733;</span></label>
+                            <input type="radio" name="rating" value="3" id="star3">
+                            <label for="star3"><span>&#9733;</span></label>
+                            <input type="radio" name="rating" value="2" id="star2">
+                            <label for="star2"><span>&#9733;</span></label>
+                            <input type="radio" name="rating" value="1" id="star1">
+                            <label for="star1"><span>&#9733;</span></label>
+                        </div>
+
+                    </div>
+                    <div class="form__group">
+                        <p for="title">What specific aspects of your visit stood out positively?</p>
+                        <input type="text" name="title" id="title" class="form__input">
+                    </div>
+                    <div class="form__group">
+                        <p for="title">Is there anything that could have been improved during your stay/visit? If, yes
+                            please share specific examples.</p>
+                        <input type="text" name="title" id="title" class="form__input">
+                    </div>
+                    <div class="form__group">
+                        <p for="text">Would you recommend our service to others? why? or why not?</p>
+                        <textarea name="text" id="text" class="form__input"></textarea>
+                    </div>
+                    <div class="form__group">
+                        <p for="text">Handled by:</p>
+                        <div id="handler"
+                            style="width: 100%; height: 30px; background-color:#ddd; margin-bottom: 40px;">
+                        </div>
+                        </form>
+                    </div>
+
+                    <div class="modal__footer">
+                        <button class="modal__button feedback__button" id="add-button" onclick="showModal()">
+                            Add feedback
+                        </button>
+                        <a class="modal__button feedback__button modal__button_cancel" id="cancel-button"
+                            href="index.html" target="">Cancel</a>
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content" style="
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+        ">
+                <p id="modal-text" style="
+      padding: 50px;
+  "></p>
+                <a class="modal__button feedback__button modal__button_cancel" id="cancel-button" href="index.html"
+                    target="">OK</a>
+
+                </button>
+            </div>
+        </div>
+
+
+
+        <script>
+            function showModal() {
+                // Get the modal
+                var modal = document.getElementById("myModal");
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+
+                // Get the modal text element
+                var modalText = document.getElementById("modal-text");
+
+                // Set the text content of the modal
+                modalText.textContent = "Your request will be handled in less than 10 minutes. Please wait.";
+
+                // Display the modal
+                modal.style.display = "block";
+
+                // Close the modal after 5 seconds (5000 milliseconds)
+                setTimeout(function () {
+                    modal.style.display = "none";
+                }, 5000);
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function () {
+                    modal.style.display = "none";
+                };
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                };
+            }
+        </script>
+
+
+        <script defer="" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script defer="" src="scripts.js"></script>
+    </body>
+
+</body>
+
+</html>
