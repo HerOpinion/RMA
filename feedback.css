@@ -225,6 +225,12 @@ input[type="submit"]:hover {
     .modal__content{
         padding: 10px;
         font-size: 10px;
+
+         background: transparent !important;
+       border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px) !important;
+    display: flex;
+    flex-direction: column;
     }
     label span {
         font-size: 24px;
