@@ -214,3 +214,26 @@ input[type="submit"]:hover {
     background-color: #45a049;
     
 }
+@media(max-width: 510px){
+    .container {
+        width: 300px;
+    }
+    .item-animation{
+        padding: 10px;
+        display: flex;
+    justify-content: space-around;
+    }
+    .feedback__button{
+        padding: 10px 5px;
+        font-size: 8px;    
+    }
+    .modal__content{
+        padding: 10px;
+        font-size: 10px;
+    }
+    label span {
+        font-size: 24px;
+        color: #679bec;
+        cursor: pointer;
+    }
+}
