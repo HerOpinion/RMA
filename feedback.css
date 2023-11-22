@@ -237,7 +237,7 @@ input[type="submit"]:hover {
         cursor: pointer;
     }
     #mainNav{
-        margin-top: -600px;
+/*         margin-top: -300px; */
         position: fixed;
     }
 }
