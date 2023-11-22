@@ -238,6 +238,6 @@ input[type="submit"]:hover {
     }
     #mainNav{
 /*         margin-top: -300px; */
-        position: fixed;
+/*         position: fixed; */
     }
 }
